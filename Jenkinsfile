@@ -11,11 +11,12 @@ stages {
             steps {
                 script {
                          // Authenticate with Google Cloud using the service account credentials
-			withCredentials([[$class: 'GoogleServiceAccountCredentials', credentialsId: 'google-service-account']])
-			withCredentials([[$class: 'GoogleServiceAccountCredentials', credentialsId: 'google-service-account']])
+			withCredentials([[$class: 'GoogleServiceAccountCredentials', credentialsId: 'google-service-account']]){
+                        sh 'gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS'
                         sh 'gcloud auth configure-docker us-central1-docker.pkg.dev'
 	                sh 'gcloud config set project halogen-order-447007-t3'
 		        }
+		}
             }
         }
 		

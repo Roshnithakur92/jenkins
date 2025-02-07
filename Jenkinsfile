@@ -1,11 +1,7 @@
 pipeline {
     agent any
-	
-	environment {
-        GOOGLE_CREDENTIALS = credentials('google-service-account')
-}
 
-    stages {
+stages {
 	     stage('Clone Repository') {
             steps {
                 git branch: 'main', url: 'https://github.com/Roshnithakur92/jenkins.git'
@@ -15,9 +11,10 @@ pipeline {
             steps {
                 script {
                          // Authenticate with Google Cloud using the service account credentials
-                    sh 'gcloud auth activate-service-account --key-file=${GOOGLE_CREDENTIALS}'
-		    sh 'gcloud auth configure-docker us-central1-docker.pkg.dev'
-	            sh 'gcloud config set project halogen-order-447007-t3'
+			withCredentials([[$class: 'GoogleServiceAccountCredentials', credentialsId: 'google-service-account']])
+			withCredentials([[$class: 'GoogleServiceAccountCredentials', credentialsId: 'google-service-account']])
+                        sh 'gcloud auth configure-docker us-central1-docker.pkg.dev'
+	                sh 'gcloud config set project halogen-order-447007-t3'
 		        }
             }
         }

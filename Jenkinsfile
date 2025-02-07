@@ -1,6 +1,9 @@
 pipeline {
     agent any 
-
+	
+environment {
+        GOOGLE_CREDENTIALS = credentials('account')
+}
     stages {
 	     stage('Clone Repository') {
             steps {
@@ -11,16 +14,19 @@ pipeline {
             steps {
                 script {
                     // Authenticate with Google Cloud using the service account credentials
-                 sh 'gcloud auth configure-docker us-central1-docker.pkg.dev'
+                    sh 'gcloud auth activate-service-account --key-file=${GOOGLE_CREDENTIALS}'
+		    sh 'gcloud auth configure-docker us-central1-docker.pkg.dev'
 	            }
             }
         }
-	 stage('Build Docker Image') {
+		
+		stage('Build Docker Image') {
             steps {
                 sh 'docker build -t "us-central1-docker.pkg.dev/halogen-order-447007-t3/terraform/jenkinsimage:latest" .'
             }
         }
-             stage('Push to Artifact Registry') {
+        
+        stage('Push to Artifact Registry') {
             steps {
 		         sh 'docker push "us-central1-docker.pkg.dev/halogen-order-447007-t3/terraform/jenkinsimage:latest"'
              }

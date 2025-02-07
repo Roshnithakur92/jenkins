@@ -2,7 +2,7 @@ pipeline {
     agent any 
 	
 environment {
-        GOOGLE_CREDENTIALS = credentials('account')
+        GOOGLE_CREDENTIALS = credentials('google-service-account')
 }
     stages {
 	     stage('Clone Repository') {
@@ -14,7 +14,8 @@ environment {
             steps {
                 script {
                     // Authenticate with Google Cloud using the service account credentials
-                    sh 'gcloud auth activate-service-account --key-file=${GOOGLE_CREDENTIALS}'
+                    echo \$GOOGLE_CREDENTIALS | gcloud auth activate-service-account --key-file=-
+                    gcloud config set project \$PROJECT_ID
 		    sh 'gcloud auth configure-docker us-central1-docker.pkg.dev'
 	            }
             }

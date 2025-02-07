@@ -11,11 +11,8 @@ stages {
             steps {
                 script {
                         withGoogleOAuth(credentialsId: 'google-service-account') {
-                           sh '''
-                            gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
-                            gcloud config set project halogen-order-447007-t3
-			    gcloud auth configure-docker us-central1-docker.pkg.dev
-                          '''
+                          sh 'gcloud config set project halogen-order-447007-t3'
+			  sh 'gcloud auth configure-docker us-central1-docker.pkg.dev' 
                       }
 
 		}

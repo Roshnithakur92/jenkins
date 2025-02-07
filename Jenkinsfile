@@ -2,7 +2,7 @@ pipeline {
     agent any
 	
 	environment {
-        GOOGLE_CREDENTIALS = credentials('google-service-account')
+        GOOGLE_CREDENTIALS = credentials('account')
 }
 
     stages {
@@ -14,12 +14,11 @@ pipeline {
              stage('Authenticate with Google Cloud') {
             steps {
                 script {
-                    // Set up authentication with Google Cloud
-                        sh 'gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}'
-			sh 'gcloud config set project halogen-order-447007-t3'
-		        sh  'gcloud auth configure-docker us-central1-docker.pkg.dev'
-		    
-		    }
+                         // Authenticate with Google Cloud using the service account credentials
+                    sh 'gcloud auth activate-service-account --key-file=${GOOGLE_CREDENTIALS}'
+		    sh 'gcloud auth configure-docker us-central1-docker.pkg.dev'
+	            sh 'gcloud config set project halogen-order-447007-t3'
+		        }
             }
         }
 		

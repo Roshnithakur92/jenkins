@@ -14,9 +14,8 @@ environment {
             steps {
                 script {
                     // Authenticate with Google Cloud using the service account credentials
-                    echo \$GOOGLE_CREDENTIALS | gcloud auth activate-service-account --key-file=-
-                    gcloud config set project halogen-order-447007-t3
-		    sh 'gcloud auth configure-docker us-central1-docker.pkg.dev'
+                       sh 'gcloud authactivate-service-account--key-file=${GOOGLE_CREDENTIALS}'
+		       sh 'gcloud auth configure-docker us-central1-docker.pkg.dev'
 	            }
             }
         }

@@ -8,7 +8,7 @@ pipeline {
     stages {
 	     stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/Roshnithakur92/project-demo.git'
+                git branch: 'main', url: 'https://github.com/Roshnithakur92/jenkins.git'
             }
         }
              stage('Authenticate with Google Cloud') {

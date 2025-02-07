@@ -10,7 +10,7 @@ stages {
              stage('Authenticate with Google Cloud') {
             steps {
                 script {
-                         withCredentials([file(credentialsId: 'google-service-account', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                        withGoogleOAuth(credentialsId: 'google-service-account') {
                            sh '''
                             gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
                             gcloud config set project halogen-order-447007-t3

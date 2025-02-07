@@ -19,7 +19,8 @@ pipeline {
 			sh 'gcloud authactivate-service-account--key-file=${GOOGLE_APPLICATION_CREDENTIALS}
 			sh 'gcloud config set project halogen-order-447007-t3'
 		        sh  'gcloud auth configure-docker us-central1-docker.pkg.dev'
-	            }
+		    }
+		    }
             }
         }
 		

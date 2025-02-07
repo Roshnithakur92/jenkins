@@ -15,11 +15,10 @@ pipeline {
             steps {
                 script {
                     // Set up authentication with Google Cloud
-                    withCredentials([file(credentialsId: 'gcr-service-account', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]){
-			sh 'gcloud authactivate-service-account--key-file=${GOOGLE_APPLICATION_CREDENTIALS}
+                        sh 'gcloud authactivate-service-account--key-file=${GOOGLE_APPLICATION_CREDENTIALS}
 			sh 'gcloud config set project halogen-order-447007-t3'
 		        sh  'gcloud auth configure-docker us-central1-docker.pkg.dev'
-		    }
+		    
 		    }
             }
         }
